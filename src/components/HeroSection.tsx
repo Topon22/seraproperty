@@ -29,21 +29,46 @@ export default function HeroSection() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
         >
-          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white leading-tight mb-4">
+          {/* Brand badge */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+            className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/15 rounded-full px-4 py-1.5 mb-6"
+          >
+            <span className="w-2 h-2 rounded-full bg-[#5dade2] animate-pulse" />
+            <span className="text-white/70 text-xs font-medium tracking-wide">
+              Trusted by 10,000+ tenants in Dhaka
+            </span>
+          </motion.div>
+
+          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold text-white leading-tight mb-4">
             Renting Made{" "}
-            <span className="text-[#5dade2]">Simple</span>
+            <motion.span
+              className="text-[#5dade2] inline-block"
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.4, ease: [0.25, 1, 0.5, 1] }}
+            >
+              Simple
+            </motion.span>
           </h1>
-          <p className="text-white/70 text-base sm:text-lg mb-10 max-w-xl mx-auto">
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.6, delay: 0.5 }}
+            className="text-white/60 text-base sm:text-lg mb-10 max-w-xl mx-auto leading-relaxed"
+          >
             Discover your perfect home or commercial space across Dhaka with
             verified listings and seamless experience.
-          </p>
+          </motion.p>
         </motion.div>
 
         {/* Search Bar */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
+          transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
         >
           <div className="flex flex-col sm:flex-row items-stretch bg-white rounded-2xl shadow-2xl overflow-hidden max-w-2xl mx-auto">
             <div className="flex-1 relative">
@@ -64,9 +89,11 @@ export default function HeroSection() {
                 <SlidersHorizontal className="w-4 h-4" />
                 <span className="hidden sm:inline text-sm font-medium">Filters</span>
               </Button>
-              <Button className="bg-sera hover:bg-sera-dark text-white rounded-none px-6 sm:px-8 h-auto py-4 sm:py-5 text-sm font-semibold transition-colors">
-                Search
-              </Button>
+              <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+                <Button className="bg-sera hover:bg-sera-dark text-white rounded-none px-6 sm:px-8 h-auto py-4 sm:py-5 text-sm font-semibold transition-colors">
+                  Search
+                </Button>
+              </motion.div>
             </div>
           </div>
         </motion.div>
@@ -75,10 +102,10 @@ export default function HeroSection() {
         <AnimatePresence>
           {showFilters && (
             <motion.div
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: "auto" }}
-              exit={{ opacity: 0, height: 0 }}
-              transition={{ duration: 0.3 }}
+              initial={{ opacity: 0, height: 0, y: -10 }}
+              animate={{ opacity: 1, height: "auto", y: 0 }}
+              exit={{ opacity: 0, height: 0, y: -10 }}
+              transition={{ duration: 0.3, ease: [0.25, 1, 0.5, 1] }}
               className="overflow-hidden"
             >
               <div className="bg-white rounded-2xl shadow-2xl mt-3 max-w-2xl mx-auto p-5">
@@ -86,7 +113,7 @@ export default function HeroSection() {
                   <h3 className="text-sm font-semibold text-dark">Filters</h3>
                   <button
                     onClick={() => setShowFilters(false)}
-                    className="text-gray-400 hover:text-gray-600"
+                    className="text-gray-400 hover:text-gray-600 transition-colors"
                   >
                     <X className="w-4 h-4" />
                   </button>
@@ -160,16 +187,26 @@ export default function HeroSection() {
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 0.6, duration: 0.6 }}
+          transition={{ delay: 0.8, duration: 0.6 }}
           className="mt-8"
         >
           <a
             href="#properties"
-            className="inline-flex items-center gap-2 text-white/60 text-sm hover:text-white/90 transition-colors"
+            className="inline-flex items-center gap-2 text-white/50 text-sm hover:text-white/80 transition-colors group"
           >
             <span>Explore Properties</span>
-            <svg className="w-4 h-4 animate-bounce" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+            <svg
+              className="w-4 h-4 group-hover:translate-y-1 transition-transform duration-300"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M19 14l-7 7m0 0l-7-7m7 7V3"
+              />
             </svg>
           </a>
         </motion.div>
