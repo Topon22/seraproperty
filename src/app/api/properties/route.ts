@@ -1,11 +1,13 @@
 import { NextResponse } from "next/server";
-import { db } from "@/lib/db";
+import { seedProperties } from "@/lib/seed-data";
 
 export async function GET(request: Request) {
-  try {
-    const { searchParams } = new URL(request.url);
-    const type = searchParams.get("type");
+  const { searchParams } = new URL(request.url);
+  const type = searchParams.get("type");
 
+  // Try database first, fall back to static seed data
+  try {
+    const { db } = await import("@/lib/db");
     const properties = await db.property.findMany({
       where: {
         featured: true,
@@ -13,12 +15,12 @@ export async function GET(request: Request) {
       },
       orderBy: { createdAt: "desc" },
     });
-
     return NextResponse.json({ properties });
-  } catch (error) {
-    return NextResponse.json(
-      { error: "Failed to fetch properties" },
-      { status: 500 }
-    );
+  } catch {
+    // Fallback: serve from static seed data (works on Vercel / any serverless env)
+    const filtered = type
+      ? seedProperties.filter((p) => p.type === type)
+      : seedProperties;
+    return NextResponse.json({ properties: filtered });
   }
 }

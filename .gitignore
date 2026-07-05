@@ -20,9 +20,14 @@ node_modules
 # production
 /build
 
+# database (generated locally, Vercel uses static fallback)
+/db/*.db
+/db/*.db-journal
+
 # misc
 .DS_Store
 *.pem
+upload/
 
 # debug
 npm-debug.log*
@@ -30,12 +35,13 @@ yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 
-# env files (can opt-in for committing if needed)
-.env*
+# env files (set DATABASE_URL in Vercel dashboard)
+.env
+.env.local
+.env.production.local
 
 # vercel
 .vercel
-
 
 # typescript
 *.tsbuildinfo
@@ -44,11 +50,8 @@ local-*
 .claude
 .z-ai-config
 *.log
-dev.log
-dev.out.log
-test
-prompt
-
 server.log
-# Skills directory
+
+# Non-project directories
 /skills/
+/examples/
