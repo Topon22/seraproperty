@@ -35,21 +35,14 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 md:h-20">
           {/* Logo */}
-          <a href="#" className="flex items-center gap-1">
-            <span
-              className={`text-2xl font-bold tracking-tight transition-colors duration-300 ${
-                scrolled ? "text-dark" : "text-white"
+          <a href="#" className="flex items-center">
+            <img
+              src="/images/logo.png"
+              alt="Sera Property"
+              className={`h-9 md:h-10 w-auto transition-all duration-300 ${
+                scrolled ? "brightness-0" : "brightness-0 invert"
               }`}
-            >
-              Sera
-            </span>
-            <span
-              className={`text-2xl font-bold tracking-tight transition-colors duration-300 ${
-                scrolled ? "text-sera" : "text-sera-light"
-              }`}
-            >
-              Property
-            </span>
+            />
           </a>
 
           {/* Desktop Nav */}
@@ -98,9 +91,11 @@ export default function Navbar() {
                 <SheetTitle className="sr-only">Navigation Menu</SheetTitle>
                 <div className="flex flex-col h-full">
                   <div className="flex items-center justify-between p-6 border-b border-gray-100">
-                    <span className="text-xl font-bold">
-                      Sera<span className="text-sera">Property</span>
-                    </span>
+                    <img
+                      src="/images/logo.png"
+                      alt="Sera Property"
+                      className="h-8 w-auto"
+                    />
                   </div>
                   <div className="flex-1 overflow-y-auto py-4">
                     {navLinks.map((link) => (

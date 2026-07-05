@@ -1,0 +1,28 @@
+{
+  "choices": [
+    {
+      "finish_reason": "stop",
+      "index": 0,
+      "message": {
+        "content": "To answer the questions about the footer:  \n\n1. **Is there a Sera Property logo image visible?**  \n   Yes, a Sera Property logo (with the “SERA” text and icon) is visible in the footer’s left - hand section.  \n\n2. **Are the social media icons (Facebook, Instagram, etc.) styled in blue?**  \n   No, the social media icons (Facebook, Instagram, YouTube, LinkedIn) are styled in gray (not blue).  \n\n3. **Is 'Make a Request' link in blue?**  \n   Yes, the “Make a Request” link is styled in blue.  \n\n\nThe answers are: 1) Yes, 2) No, 3) Yes.",
+        "role": "assistant"
+      }
+    }
+  ],
+  "created": 1783246682,
+  "id": "20260705181753f31f42d03bce4bad",
+  "model": "glm-4.6v",
+  "object": "chat.completion",
+  "request_id": "20260705181753f31f42d03bce4bad",
+  "usage": {
+    "completion_tokens": 152,
+    "completion_tokens_details": {
+      "reasoning_tokens": 0
+    },
+    "prompt_tokens": 1027,
+    "prompt_tokens_details": {
+      "cached_tokens": 4
+    },
+    "total_tokens": 1179
+  }
+}

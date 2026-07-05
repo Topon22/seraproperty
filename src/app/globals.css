@@ -41,10 +41,10 @@
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
-  --color-sera: #E85D75;
-  --color-sera-dark: #D14A62;
-  --color-sera-light: #F5A3B0;
-  --color-sera-bg: #FFF5F7;
+  --color-sera: #3498db;
+  --color-sera-dark: #2980b9;
+  --color-sera-light: #5dade2;
+  --color-sera-bg: #EBF5FB;
   --color-dark: #1A1A2E;
   --color-dark-soft: #2D2D44;
   --color-gray-100: #F7F7F8;
@@ -66,7 +66,7 @@
   --card-foreground: #1A1A2E;
   --popover: #ffffff;
   --popover-foreground: #1A1A2E;
-  --primary: #E85D75;
+  --primary: #3498db;
   --primary-foreground: #ffffff;
   --secondary: #F7F7F8;
   --secondary-foreground: #1A1A2E;
@@ -74,23 +74,23 @@
   --muted-foreground: #636366;
   --accent: #F7F7F8;
   --accent-foreground: #1A1A2E;
-  --destructive: #E85D75;
+  --destructive: #e74c3c;
   --border: #EBEBED;
   --input: #EBEBED;
-  --ring: #E85D75;
-  --chart-1: #E85D75;
+  --ring: #3498db;
+  --chart-1: #3498db;
   --chart-2: #2D2D44;
   --chart-3: #636366;
   --chart-4: #AEAEB2;
   --chart-5: #48484A;
   --sidebar: #F7F7F8;
   --sidebar-foreground: #1A1A2E;
-  --sidebar-primary: #E85D75;
+  --sidebar-primary: #3498db;
   --sidebar-primary-foreground: #ffffff;
   --sidebar-accent: #EBEBED;
   --sidebar-accent-foreground: #1A1A2E;
   --sidebar-border: #EBEBED;
-  --sidebar-ring: #E85D75;
+  --sidebar-ring: #3498db;
 }
 
 @layer base {
@@ -130,9 +130,9 @@
 .hero-overlay {
   background: linear-gradient(
     180deg,
-    rgba(26, 26, 46, 0.55) 0%,
-    rgba(26, 26, 46, 0.40) 40%,
-    rgba(26, 26, 46, 0.65) 100%
+    rgba(26, 40, 70, 0.60) 0%,
+    rgba(20, 35, 60, 0.45) 40%,
+    rgba(26, 40, 70, 0.70) 100%
   );
 }
 

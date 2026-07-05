@@ -1,0 +1,28 @@
+{
+  "choices": [
+    {
+      "finish_reason": "stop",
+      "index": 0,
+      "message": {
+        "content": "1) The Search button is blue.  \n2) Yes, the word 'Simple' is visible and in blue.  \n3) Yes, the Sera Property logo is visible in the navbar (the small square logo on the top - left).",
+        "role": "assistant"
+      }
+    }
+  ],
+  "created": 1783246590,
+  "id": "20260705181627ba92d19840a74b93",
+  "model": "glm-4.6v",
+  "object": "chat.completion",
+  "request_id": "20260705181627ba92d19840a74b93",
+  "usage": {
+    "completion_tokens": 53,
+    "completion_tokens_details": {
+      "reasoning_tokens": 0
+    },
+    "prompt_tokens": 1029,
+    "prompt_tokens_details": {
+      "cached_tokens": 4
+    },
+    "total_tokens": 1082
+  }
+}

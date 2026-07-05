@@ -31,7 +31,7 @@ export default function HeroSection() {
         >
           <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white leading-tight mb-4">
             Renting Made{" "}
-            <span className="text-sera-light">Simple</span>
+            <span className="text-[#5dade2]">Simple</span>
           </h1>
           <p className="text-white/70 text-base sm:text-lg mb-10 max-w-xl mx-auto">
             Discover your perfect home or commercial space across Dhaka with

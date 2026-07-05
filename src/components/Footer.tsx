@@ -42,9 +42,11 @@ export default function Footer() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-12">
           {/* Company Info */}
           <div>
-            <h3 className="text-xl font-bold mb-4">
-              Sera<span className="text-sera">Property</span>
-            </h3>
+            <img
+              src="/images/logo.png"
+              alt="Sera Property"
+              className="h-9 w-auto mb-4"
+            />
             <div className="space-y-3 text-sm text-gray-500">
               <div className="flex items-start gap-2.5">
                 <MapPin className="w-4 h-4 mt-0.5 text-gray-400 flex-shrink-0" />
