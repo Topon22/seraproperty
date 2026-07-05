@@ -5,7 +5,13 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
 
-export default function SeraViewSection() {
+interface SeraViewSectionProps {
+  listingType: string;
+}
+
+export default function SeraViewSection({ listingType }: SeraViewSectionProps) {
+  const isSale = listingType === "sale";
+
   return (
     <section className="py-16 md:py-24 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -46,10 +52,9 @@ export default function SeraViewSection() {
               Sera<span className="text-sera">VIEW</span>
             </h2>
             <p className="text-gray-600 text-base leading-relaxed mb-8">
-              SeraVIEW is our proprietary property showcase feature that provides
-              an immersive and high-definition viewing experience of rental
-              properties. Explore every corner of your prospective home from the
-              comfort of your screen before scheduling an in-person visit.
+              {isSale
+                ? "SeraVIEW is our proprietary property showcase feature that provides an immersive and high-definition viewing experience of properties for sale. Explore every corner of your prospective purchase from the comfort of your screen before scheduling an in-person visit — saving you time and helping you shortlist with confidence."
+                : "SeraVIEW is our proprietary property showcase feature that provides an immersive and high-definition viewing experience of rental properties. Explore every corner of your prospective home from the comfort of your screen before scheduling an in-person visit."}
             </p>
             <Button className="bg-sera hover:bg-sera-dark text-white rounded-full px-8 text-sm font-medium group">
               See More

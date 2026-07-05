@@ -10,22 +10,27 @@ const urbanist = Urbanist({
 });
 
 export const metadata: Metadata = {
-  title: "Sera Property — Renting Made Simple | Dhaka's Trusted Letting Agency",
+  title: "Sera Property — Rent & Buy Properties in Dhaka | Bangladesh's Trusted Real Estate Agency",
   description:
-    "Find, rent, and manage properties effortlessly with Sera Property. Discover Dhaka's best apartments and commercial spaces with verified listings, virtual tours, and transparent pricing.",
+    "Find, rent, buy, and sell properties effortlessly with Sera Property. Discover Dhaka's best apartments and commercial spaces for rent and sale with verified listings, virtual tours, and transparent pricing.",
   keywords: [
     "Sera Property",
     "property rental Dhaka",
+    "property for sale Dhaka",
     "rent homes Dhaka",
+    "buy apartment Dhaka",
     "verified listings",
-    "letting agency Bangladesh",
+    "real estate agency Bangladesh",
     "Bangladesh property",
     "apartments for rent Dhaka",
+    "apartments for sale Dhaka",
     "commercial spaces Dhaka",
     "Bashundhara apartment",
     "Gulshan rent",
+    "Gulshan property for sale",
     "Banani flat",
     "Baridhara office space",
+    "invest in Dhaka real estate",
   ],
   icons: {
     icon: "/favicon.ico",
@@ -36,9 +41,9 @@ export const metadata: Metadata = {
     canonical: "/",
   },
   openGraph: {
-    title: "Sera Property — Renting Made Simple",
+    title: "Sera Property — Rent & Buy Properties in Dhaka",
     description:
-      "Find, rent, and manage properties effortlessly with Sera Property. Discover Dhaka's best apartments and commercial spaces.",
+      "Find, rent, buy, and sell properties effortlessly with Sera Property. Discover Dhaka's best apartments and commercial spaces for rent and sale.",
     type: "website",
     locale: "en_BD",
     url: "https://seraproperty.com",
@@ -48,15 +53,15 @@ export const metadata: Metadata = {
         url: "/images/hero-bg.png",
         width: 1920,
         height: 1080,
-        alt: "Sera Property — Premium rental properties in Dhaka",
+        alt: "Sera Property — Premium properties for rent and sale in Dhaka",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Sera Property — Renting Made Simple",
+    title: "Sera Property — Rent & Buy Properties in Dhaka",
     description:
-      "Find, rent, and manage properties effortlessly with Sera Property.",
+      "Find, rent, buy, and sell properties effortlessly with Sera Property.",
     images: ["/images/hero-bg.png"],
   },
   robots: {
@@ -88,7 +93,7 @@ export default function RootLayout({
               "@context": "https://schema.org",
               "@type": "RealEstateAgent",
               name: "Sera Property",
-              description: "Dhaka's trusted property rental agency. Verified listings, virtual tours, and seamless rental experience.",
+              description: "Dhaka's trusted real estate agency for rent and sale. Verified listings, virtual tours, and seamless property experience.",
               url: "https://seraproperty.com",
               logo: "https://seraproperty.com/images/logo.png",
               image: "https://seraproperty.com/images/hero-bg.png",
@@ -104,7 +109,7 @@ export default function RootLayout({
               areaServed: [
                 { "@type": "City", name: "Dhaka" },
               ],
-              priceRange: "৳35,000 - ৳120,000/month",
+              priceRange: "৳35,000 - ৳6.2 Crore",
               openingHoursSpecification: {
                 "@type": "OpeningHoursSpecification",
                 dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],

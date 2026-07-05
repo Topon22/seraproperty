@@ -1,6 +1,6 @@
 "use client";
 
-import { Monitor, ShieldCheck, UserCheck, ClipboardCheck, Layers } from "lucide-react";
+import { Monitor, ShieldCheck, UserCheck, ClipboardCheck, Layers, TrendingUp } from "lucide-react";
 import { motion } from "framer-motion";
 
 const features = [
@@ -8,31 +8,37 @@ const features = [
     icon: Monitor,
     title: "Best in Class Digital Experience",
     description:
-      "Superior image quality and a step-by-step rental flow offer a seamless, user-friendly experience — from discovery to deal.",
+      "Superior image quality and a step-by-step flow offer a seamless, user-friendly experience — whether you're renting your next home or buying an investment property, from discovery to deal.",
   },
   {
     icon: ShieldCheck,
     title: "Verified Properties",
     description:
-      "Every listing is verified for accuracy and authenticity, ensuring tenants see only real, trustworthy properties.",
+      "Every rental listing and property for sale is verified for accuracy and authenticity, ensuring you see only real, trustworthy properties with clear documentation.",
   },
   {
     icon: UserCheck,
-    title: "Tenant Screening",
+    title: "Tenant & Buyer Screening",
     description:
-      "Secured rentals by verifying tenant documents, protecting homeowners from risks and providing a smoother approval process.",
+      "Secured transactions by verifying tenant documents and buyer credentials, protecting homeowners and sellers while providing a smoother approval process for all parties.",
   },
   {
     icon: ClipboardCheck,
     title: "Property Inspection",
     description:
-      "A fair, photo-documented inspection to protect both tenants and homeowners from future disputes.",
+      "A fair, photo-documented inspection to protect tenants, buyers, homeowners, and sellers from future disputes — giving everyone confidence before signing.",
+  },
+  {
+    icon: TrendingUp,
+    title: "Investment Advisory",
+    description:
+      "Get expert guidance on property appreciation, rental yields, and market trends across Dhaka's top neighborhoods. Make data-driven decisions whether you're renting, buying, or investing.",
   },
   {
     icon: Layers,
     title: "End to End Solution",
     description:
-      "The entire rental process — from listing to move-in — is ensured with a seamless, hassle-free experience for both parties.",
+      "The entire process — from listing to move-in or handover — is managed seamlessly. Whether renting, buying, or selling, we ensure a hassle-free experience for both parties.",
   },
 ];
 
@@ -59,7 +65,7 @@ export default function WhyChooseSection() {
             Why Choose <span className="text-sera">Sera Property</span>
           </h2>
           <p className="text-gray-500 text-sm mt-2 max-w-lg mx-auto">
-            We combine technology, transparency, and trust to deliver a rental experience that&apos;s truly hassle-free.
+            We combine technology, transparency, and trust to deliver a property experience — whether you&apos;re renting, buying, or selling — that&apos;s truly hassle-free.
           </p>
         </div>
 
@@ -74,11 +80,7 @@ export default function WhyChooseSection() {
             <motion.div
               key={feature.title}
               variants={item}
-              className={`bg-white rounded-2xl p-6 border border-gray-100 hover:shadow-lg hover:border-sera/20 transition-all duration-300 ${
-                index >= 3 ? "sm:col-span-1 lg:col-span-1" : ""
-              } ${index === 3 ? "sm:col-start-1 lg:col-start-1" : ""} ${
-                index === 4 ? "sm:col-start-2 lg:col-start-2" : ""
-              }`}
+              className="bg-white rounded-2xl p-6 border border-gray-100 hover:shadow-lg hover:border-sera/20 transition-all duration-300"
             >
               <div className="w-12 h-12 rounded-xl bg-sera-bg flex items-center justify-center mb-4">
                 <feature.icon className="w-6 h-6 text-sera" />

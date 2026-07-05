@@ -87,11 +87,10 @@ export default function Footer() {
           <div className="absolute -bottom-8 -left-8 w-32 h-32 bg-white/5 rounded-full" />
           <div className="relative">
             <h3 className="text-2xl sm:text-3xl font-bold mb-2">
-              Find Your Perfect Rental Today
+              Find Your Perfect Property Today
             </h3>
             <p className="text-white/80 text-sm mb-6 max-w-md mx-auto">
-              Explore thousands of verified properties across Dhaka. Your next home
-              is just a click away.
+              {`Explore verified properties for rent and sale across Dhaka. Your next home or investment is just a click away.`}
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
               <a
@@ -138,7 +137,7 @@ export default function Footer() {
                   <span className="text-[#5dade2]"> Property</span>
                 </span>
                 <span className="text-[9px] font-medium tracking-[0.2em] uppercase text-white/40">
-                  Renting Made Simple
+                  Rent & Sale Made Simple
                 </span>
               </div>
             </div>
@@ -293,7 +292,7 @@ export default function Footer() {
             href="#"
             className="text-xs font-medium text-sera-light hover:underline hover:text-white transition-colors"
           >
-            Make a Request — Rent with Sera Property, It&apos;s free!
+            Make a Request — Rent or Buy with Sera Property, It&apos;s free!
           </a>
         </div>
       </div>

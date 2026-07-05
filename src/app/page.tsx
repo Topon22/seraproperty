@@ -1,12 +1,12 @@
 "use client";
 
-import { useEffect, useState, useCallback, useRef } from "react";
+import { useEffect, useState, useCallback, useRef, useMemo } from "react";
 import dynamic from "next/dynamic";
 import LoadingScreen from "@/components/LoadingScreen";
 import { AlertTriangle, RefreshCw } from "lucide-react";
+import HeroSection, { type FilterState, defaultFilters } from "@/components/HeroSection";
 
 const Navbar = dynamic(() => import("@/components/Navbar"), { ssr: false });
-const HeroSection = dynamic(() => import("@/components/HeroSection"), { ssr: false });
 const PropertyCarousel = dynamic(() => import("@/components/PropertyCarousel"), { ssr: false });
 const WhyChooseSection = dynamic(() => import("@/components/WhyChooseSection"), { ssr: false });
 const SeraViewSection = dynamic(() => import("@/components/SeraViewSection"), { ssr: false });
@@ -22,6 +22,7 @@ interface Property {
   area: string;
   price: number;
   priceUnit: string;
+  listingType: string;
   bedrooms: number | null;
   bathrooms: number | null;
   sqft: number | null;
@@ -104,13 +105,54 @@ function BlogSkeleton() {
   );
 }
 
+function applyFilters(properties: Property[], filters: FilterState): Property[] {
+  let result = properties;
+
+  // Filter by listing type
+  result = result.filter((p) => p.listingType === filters.listingType);
+
+  // Filter by property type
+  if (filters.propertyType !== "all") {
+    result = result.filter((p) => p.type === filters.propertyType);
+  }
+
+  // Filter by bedrooms
+  if (filters.bedrooms !== "all") {
+    const bedNum = parseInt(filters.bedrooms, 10);
+    if (filters.bedrooms === "5") {
+      result = result.filter((p) => p.bedrooms !== null && p.bedrooms >= 5);
+    } else {
+      result = result.filter((p) => p.bedrooms === bedNum);
+    }
+  }
+
+  // Filter by price range
+  if (filters.priceRange !== "all") {
+    const [min, max] = filters.priceRange.split("-").map(Number);
+    result = result.filter((p) => p.price >= min && p.price <= max);
+  }
+
+  // Filter by search query
+  if (filters.searchQuery.trim()) {
+    const query = filters.searchQuery.toLowerCase().trim();
+    result = result.filter(
+      (p) =>
+        p.title.toLowerCase().includes(query) ||
+        p.location.toLowerCase().includes(query) ||
+        p.area.toLowerCase().includes(query)
+    );
+  }
+
+  return result;
+}
+
 export default function Home() {
   const [showLoader, setShowLoader] = useState(true);
-  const [residentialProperties, setResidentialProperties] = useState<Property[]>([]);
-  const [commercialProperties, setCommercialProperties] = useState<Property[]>([]);
+  const [allProperties, setAllProperties] = useState<Property[]>([]);
   const [blogPosts, setBlogPosts] = useState<BlogPost[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [filters, setFilters] = useState<FilterState>(defaultFilters);
   const abortRef = useRef<AbortController | null>(null);
 
   const handleLoaderComplete = useCallback(() => {
@@ -138,9 +180,7 @@ export default function Home() {
       const propsData = await propsRes.json();
       const blogsData = await blogsRes.json();
 
-      const allProps: Property[] = propsData.properties || [];
-      setResidentialProperties(allProps.filter((p) => p.type === "residential"));
-      setCommercialProperties(allProps.filter((p) => p.type === "commercial"));
+      setAllProperties(propsData.properties || []);
       setBlogPosts(blogsData.posts || []);
     } catch (err) {
       if (err instanceof DOMException && err.name === "AbortError") return;
@@ -155,6 +195,18 @@ export default function Home() {
     return () => abortRef.current?.abort();
   }, [fetchData]);
 
+  // Apply filters
+  const filteredProperties = useMemo(
+    () => applyFilters(allProperties, filters),
+    [allProperties, filters]
+  );
+
+  // Split filtered by type
+  const filteredResidential = filteredProperties.filter((p) => p.type === "residential");
+  const filteredCommercial = filteredProperties.filter((p) => p.type === "commercial");
+
+  const isRent = filters.listingType === "rent";
+
   return (
     <>
       {showLoader && <LoadingScreen onComplete={handleLoaderComplete} />}
@@ -166,60 +218,79 @@ export default function Home() {
       >
         <Navbar />
         <main className="flex-1" id="main-content">
-          <HeroSection />
+          <HeroSection filters={filters} onFilterChange={setFilters} />
 
           {error ? (
             <ErrorBanner onRetry={fetchData} />
           ) : (
             <>
-              {/* Residential Properties */}
-              <section aria-label="Featured residential properties">
-                {loading ? (
+              {/* Filtered Properties based on listing type */}
+              {loading ? (
+                <>
                   <div className="py-16 md:py-24 bg-white">
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                       <div className="h-8 bg-gray-100 rounded w-64 mb-8 animate-pulse" />
                       <div className="flex gap-5 overflow-hidden">
                         {Array.from({ length: 4 }).map((_, i) => (
-                          <PropertySkeleton key={`res-skel-${i}`} />
+                          <PropertySkeleton key={`skel-a-${i}`} />
                         ))}
                       </div>
                     </div>
                   </div>
-                ) : residentialProperties.length > 0 ? (
-                  <PropertyCarousel
-                    title="Explore Properties"
-                    properties={residentialProperties}
-                    browseText="Browse All Residential Properties"
-                  />
-                ) : null}
-              </section>
-
-              {/* Commercial Properties */}
-              <section aria-label="Featured commercial properties">
-                {loading ? (
                   <div className="py-16 md:py-24 bg-gray-50">
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                       <div className="h-8 bg-gray-100 rounded w-64 mb-8 animate-pulse" />
                       <div className="flex gap-5 overflow-hidden">
                         {Array.from({ length: 3 }).map((_, i) => (
-                          <PropertySkeleton key={`com-skel-${i}`} />
+                          <PropertySkeleton key={`skel-b-${i}`} />
                         ))}
                       </div>
                     </div>
                   </div>
-                ) : commercialProperties.length > 0 ? (
-                  <div className="bg-gray-50">
+                </>
+              ) : (
+                <>
+                  <section aria-label={isRent ? "Featured residential rentals" : "Residential properties for sale"}>
                     <PropertyCarousel
-                      title="Featured Commercial Spaces"
-                      properties={commercialProperties}
-                      browseText="Browse All Commercial Properties"
+                      title={isRent ? "Residential Rentals" : "Apartments for Sale"}
+                      subtitle={isRent ? "Verified flats and houses for rent" : "Premium apartments and homes for purchase"}
+                      properties={filteredResidential}
+                      browseText={isRent ? "Browse All Rentals" : "Browse All Properties for Sale"}
                     />
-                  </div>
-                ) : null}
-              </section>
+                  </section>
+
+                  <section aria-label={isRent ? "Featured commercial rentals" : "Commercial properties for sale"}>
+                    {filteredCommercial.length > 0 && (
+                      <div className="bg-gray-50">
+                        <PropertyCarousel
+                          title={isRent ? "Commercial Spaces for Rent" : "Commercial Spaces for Sale"}
+                          subtitle={isRent ? "Offices, showrooms, and workspaces" : "Investment-grade commercial properties"}
+                          properties={filteredCommercial}
+                          browseText={isRent ? "Browse All Commercial Rentals" : "Browse All Commercial Sales"}
+                        />
+                      </div>
+                    )}
+                  </section>
+
+                  {/* No results message */}
+                  {filteredProperties.length === 0 && !loading && (
+                    <div className="py-16 text-center">
+                      <p className="text-gray-500 text-sm">
+                        No properties found matching your filters.
+                      </p>
+                      <button
+                        onClick={() => setFilters(defaultFilters)}
+                        className="mt-3 text-sera text-sm font-medium hover:underline"
+                      >
+                        Clear all filters
+                      </button>
+                    </div>
+                  )}
+                </>
+              )}
 
               <WhyChooseSection />
-              <SeraViewSection />
+              <SeraViewSection listingType={filters.listingType} />
 
               {/* Blog Posts */}
               <section aria-label="Blog posts and articles">
@@ -239,7 +310,7 @@ export default function Home() {
                 ) : null}
               </section>
 
-              <ExploreSection />
+              <ExploreSection listingType={filters.listingType} />
             </>
           )}
         </main>

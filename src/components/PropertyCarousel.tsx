@@ -3,7 +3,7 @@
 import { useRef, useState } from "react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
-import { ChevronLeft, ChevronRight, Eye } from "lucide-react";
+import { ChevronLeft, ChevronRight, Eye, Key } from "lucide-react";
 import { motion } from "framer-motion";
 
 interface Property {
@@ -12,6 +12,7 @@ interface Property {
   location: string;
   price: number;
   priceUnit: string;
+  listingType?: string;
   bedrooms: number | null;
   bathrooms: number | null;
   sqft: number | null;
@@ -24,11 +25,25 @@ interface Property {
 
 function formatPrice(price: number, unit: string) {
   const formatted = price.toLocaleString("en-BD");
-  return unit === "per sqft" ? `৳${formatted} per sqft` : `৳${formatted} per month`;
+  if (unit === "total" || unit === "negotiable") {
+    // For large sale prices, show in Crores/Lakhs
+    if (price >= 10000000) {
+      const crores = price / 10000000;
+      return `৳${crores % 1 === 0 ? crores : crores.toFixed(1)} Crore`;
+    }
+    if (price >= 100000) {
+      const lakhs = price / 100000;
+      return `৳${lakhs % 1 === 0 ? lakhs : lakhs.toFixed(1)} Lakh`;
+    }
+    return `৳${formatted}`;
+  }
+  return `৳${formatted}/mo`;
 }
 
 function PropertyCard({ property, index }: { property: Property; index: number }) {
   const isResidential = property.type === "residential";
+  const isSale = property.listingType === "sale";
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 30 }}
@@ -47,6 +62,17 @@ function PropertyCard({ property, index }: { property: Property; index: number }
             sizes="(max-width: 640px) 280px, 300px"
             loading="lazy"
           />
+          {/* For Rent / For Sale badge */}
+          <div className="absolute top-3 left-3">
+            <span className={`text-[10px] font-bold px-2.5 py-1 rounded-full flex items-center gap-1 ${
+              isSale
+                ? "bg-emerald-500 text-white"
+                : "bg-dark/80 backdrop-blur-sm text-white"
+            }`}>
+              {isSale ? <Key className="w-3 h-3" /> : null}
+              {isSale ? "For Sale" : "For Rent"}
+            </span>
+          </div>
           {property.hasView && (
             <motion.div
               initial={{ opacity: 0, scale: 0.8 }}
@@ -90,10 +116,12 @@ function PropertyCard({ property, index }: { property: Property; index: number }
 
 export default function PropertyCarousel({
   title,
+  subtitle,
   properties,
   browseText,
 }: {
   title: string;
+  subtitle?: string;
   properties: Property[];
   browseText: string;
 }) {
@@ -120,6 +148,8 @@ export default function PropertyCarousel({
     }
   };
 
+  if (properties.length === 0) return null;
+
   return (
     <section id="properties" className="py-16 md:py-24 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -134,9 +164,9 @@ export default function PropertyCarousel({
             <h2 className="text-2xl sm:text-3xl font-bold text-dark">
               {title}
             </h2>
-            <p className="text-sm text-gray-500 mt-1">
-              Featured {properties[0]?.type === "residential" ? "Residential Flats and Houses" : "Commercial Spaces"}
-            </p>
+            {subtitle && (
+              <p className="text-sm text-gray-500 mt-1">{subtitle}</p>
+            )}
           </div>
           <div className="hidden sm:flex items-center gap-2">
             <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.95 }}>

@@ -136,7 +136,7 @@ export default function Navbar() {
                     scrolled ? "text-gray-400" : "text-white/50"
                   }`}
                 >
-                  Renting Made Simple
+                  Rent & Sale Made Simple
                 </span>
               </div>
             </motion.a>
@@ -241,7 +241,7 @@ export default function Navbar() {
                             <span className="text-sera"> Property</span>
                           </span>
                           <span className="text-[9px] font-medium tracking-[0.2em] uppercase text-gray-400">
-                            Renting Made Simple
+                            Rent & Sale Made Simple
                           </span>
                         </div>
                       </div>
