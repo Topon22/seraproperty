@@ -1,15 +1,18 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import Navbar from "@/components/Navbar";
-import HeroSection from "@/components/HeroSection";
-import PropertyCarousel from "@/components/PropertyCarousel";
-import WhyChooseSection from "@/components/WhyChooseSection";
-import SeraViewSection from "@/components/SeraViewSection";
-import BlogSection from "@/components/BlogSection";
-import ExploreSection from "@/components/ExploreSection";
-import Footer from "@/components/Footer";
-import WhatsAppButton from "@/components/WhatsAppButton";
+import { useEffect, useState, useCallback } from "react";
+import dynamic from "next/dynamic";
+import LoadingScreen from "@/components/LoadingScreen";
+
+const Navbar = dynamic(() => import("@/components/Navbar"), { ssr: false });
+const HeroSection = dynamic(() => import("@/components/HeroSection"), { ssr: false });
+const PropertyCarousel = dynamic(() => import("@/components/PropertyCarousel"), { ssr: false });
+const WhyChooseSection = dynamic(() => import("@/components/WhyChooseSection"), { ssr: false });
+const SeraViewSection = dynamic(() => import("@/components/SeraViewSection"), { ssr: false });
+const BlogSection = dynamic(() => import("@/components/BlogSection"), { ssr: false });
+const ExploreSection = dynamic(() => import("@/components/ExploreSection"), { ssr: false });
+const Footer = dynamic(() => import("@/components/Footer"), { ssr: false });
+const WhatsAppButton = dynamic(() => import("@/components/WhatsAppButton"), { ssr: false });
 
 interface Property {
   id: string;
@@ -45,10 +48,15 @@ interface BlogPost {
 }
 
 export default function Home() {
+  const [showLoader, setShowLoader] = useState(true);
   const [residentialProperties, setResidentialProperties] = useState<Property[]>([]);
   const [commercialProperties, setCommercialProperties] = useState<Property[]>([]);
   const [blogPosts, setBlogPosts] = useState<BlogPost[]>([]);
   const [loading, setLoading] = useState(true);
+
+  const handleLoaderComplete = useCallback(() => {
+    setShowLoader(false);
+  }, []);
 
   useEffect(() => {
     async function fetchData() {
@@ -80,40 +88,48 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="min-h-screen flex flex-col">
-      <Navbar />
-      <main className="flex-1">
-        <HeroSection />
+    <>
+      {showLoader && <LoadingScreen onComplete={handleLoaderComplete} />}
 
-        {!loading && residentialProperties.length > 0 && (
-          <PropertyCarousel
-            title="Explore Properties"
-            properties={residentialProperties}
-            browseText="Browse All Residential Properties"
-          />
-        )}
+      <div
+        className={`min-h-screen flex flex-col transition-opacity duration-500 ${
+          showLoader ? "opacity-0" : "opacity-100"
+        }`}
+      >
+        <Navbar />
+        <main className="flex-1">
+          <HeroSection />
 
-        {!loading && commercialProperties.length > 0 && (
-          <div className="bg-gray-50">
+          {!loading && residentialProperties.length > 0 && (
             <PropertyCarousel
-              title="Featured Commercial Spaces"
-              properties={commercialProperties}
-              browseText="Browse All Commercial Properties"
+              title="Explore Properties"
+              properties={residentialProperties}
+              browseText="Browse All Residential Properties"
             />
-          </div>
-        )}
+          )}
 
-        <WhyChooseSection />
-        <SeraViewSection />
+          {!loading && commercialProperties.length > 0 && (
+            <div className="bg-gray-50">
+              <PropertyCarousel
+                title="Featured Commercial Spaces"
+                properties={commercialProperties}
+                browseText="Browse All Commercial Properties"
+              />
+            </div>
+          )}
 
-        {!loading && blogPosts.length > 0 && (
-          <BlogSection posts={blogPosts} />
-        )}
+          <WhyChooseSection />
+          <SeraViewSection />
 
-        <ExploreSection />
-      </main>
-      <Footer />
-      <WhatsAppButton />
-    </div>
+          {!loading && blogPosts.length > 0 && (
+            <BlogSection posts={blogPosts} />
+          )}
+
+          <ExploreSection />
+        </main>
+        <Footer />
+        <WhatsAppButton />
+      </div>
+    </>
   );
 }

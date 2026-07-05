@@ -1,0 +1,28 @@
+{
+  "choices": [
+    {
+      "finish_reason": "stop",
+      "index": 0,
+      "message": {
+        "content": "To determine visibility: The Sera Property logo (blue house icon + \"SERA\" text on a white background) is present in the top - left navbar. It is clearly visible, as the blue house icon and accompanying text are distinct against the background, with no obstructions or blurring.  \n\nThe answer is Yes, it is clearly visible",
+        "role": "assistant"
+      }
+    }
+  ],
+  "created": 1783247390,
+  "id": "202607051829450ab91e591ab7420f",
+  "model": "glm-4.6v",
+  "object": "chat.completion",
+  "request_id": "202607051829450ab91e591ab7420f",
+  "usage": {
+    "completion_tokens": 74,
+    "completion_tokens_details": {
+      "reasoning_tokens": 0
+    },
+    "prompt_tokens": 1009,
+    "prompt_tokens_details": {
+      "cached_tokens": 4
+    },
+    "total_tokens": 1083
+  }
+}

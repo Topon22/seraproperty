@@ -36,13 +36,19 @@ export default function Navbar() {
         <div className="flex items-center justify-between h-16 md:h-20">
           {/* Logo */}
           <a href="#" className="flex items-center">
-            <img
-              src="/images/logo.png"
-              alt="Sera Property"
-              className={`h-9 md:h-10 w-auto transition-all duration-300 ${
-                scrolled ? "brightness-0" : "brightness-0 invert"
-              }`}
-            />
+            {scrolled ? (
+              <img
+                src="/images/logo.png"
+                alt="Sera Property"
+                className="h-9 md:h-10 w-auto rounded-lg"
+              />
+            ) : (
+              <img
+                src="/images/logo.png"
+                alt="Sera Property"
+                className="h-9 md:h-10 w-auto rounded-lg shadow-lg shadow-black/20"
+              />
+            )}
           </a>
 
           {/* Desktop Nav */}

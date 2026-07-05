@@ -1,0 +1,28 @@
+{
+  "choices": [
+    {
+      "finish_reason": "stop",
+      "index": 0,
+      "message": {
+        "content": "Yes, there is a loading screen with the Sera Property logo (a blue house icon alongside the text \"SERA\"). The logo is centered on a clean, white background. There is no visible progress bar. The overall appearance is minimalistic and professional, with the logo being the focal point and the design conveying a polished, clean aesthetic.",
+        "role": "assistant"
+      }
+    }
+  ],
+  "created": 1783247327,
+  "id": "20260705182845e26e217705474991",
+  "model": "glm-4.6v",
+  "object": "chat.completion",
+  "request_id": "20260705182845e26e217705474991",
+  "usage": {
+    "completion_tokens": 72,
+    "completion_tokens_details": {
+      "reasoning_tokens": 0
+    },
+    "prompt_tokens": 1017,
+    "prompt_tokens_details": {
+      "cached_tokens": 4
+    },
+    "total_tokens": 1089
+  }
+}

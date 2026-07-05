@@ -1,0 +1,28 @@
+{
+  "choices": [
+    {
+      "finish_reason": "stop",
+      "index": 0,
+      "message": {
+        "content": "Yes, this shows the main Sera Property website with the hero section (city background, \"Renting Made Simple\" headline, search bar, and navigation). The loading screen has fully transitioned away, and all elements are visible and interactive.",
+        "role": "assistant"
+      }
+    }
+  ],
+  "created": 1783247368,
+  "id": "2026070518292687f9c87cff71464b",
+  "model": "glm-4.6v",
+  "object": "chat.completion",
+  "request_id": "2026070518292687f9c87cff71464b",
+  "usage": {
+    "completion_tokens": 52,
+    "completion_tokens_details": {
+      "reasoning_tokens": 0
+    },
+    "prompt_tokens": 1007,
+    "prompt_tokens_details": {
+      "cached_tokens": 4
+    },
+    "total_tokens": 1059
+  }
+}
