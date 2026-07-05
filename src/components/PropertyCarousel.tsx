@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef, useState } from "react";
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { ChevronLeft, ChevronRight, Eye } from "lucide-react";
 import { motion } from "framer-motion";
@@ -37,11 +38,14 @@ function PropertyCard({ property, index }: { property: Property; index: number }
       className="flex-shrink-0 w-[280px] sm:w-[300px] group cursor-pointer"
     >
       <div className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 border border-gray-100 hover:border-sera/20 hover:-translate-y-1">
-        <div className="relative h-[200px] overflow-hidden">
-          <img
+        <div className="relative h-[200px] overflow-hidden bg-gray-100">
+          <Image
             src={property.imageUrl}
             alt={property.title}
-            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+            fill
+            className="object-cover group-hover:scale-105 transition-transform duration-700"
+            sizes="(max-width: 640px) 280px, 300px"
+            loading="lazy"
           />
           {property.hasView && (
             <motion.div

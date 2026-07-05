@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Search, SlidersHorizontal, X, ChevronDown } from "lucide-react";
@@ -14,10 +15,13 @@ export default function HeroSection() {
     <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden">
       {/* Background Image */}
       <div className="absolute inset-0">
-        <img
+        <Image
           src="/images/hero-bg.png"
-          alt="City skyline"
-          className="w-full h-full object-cover"
+          alt="Dhaka city skyline — premium rental properties"
+          fill
+          className="object-cover"
+          priority
+          sizes="100vw"
         />
         <div className="hero-overlay absolute inset-0" />
       </div>
@@ -73,7 +77,9 @@ export default function HeroSection() {
           <div className="flex flex-col sm:flex-row items-stretch bg-white rounded-2xl shadow-2xl overflow-hidden max-w-2xl mx-auto">
             <div className="flex-1 relative">
               <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+              <label htmlFor="hero-search" className="sr-only">Search properties by area, landmarks, or location</label>
               <Input
+                id="hero-search"
                 placeholder="Search by Area, Landmarks, or Location"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
@@ -124,7 +130,7 @@ export default function HeroSection() {
                       Property Type
                     </label>
                     <div className="relative">
-                      <select className="w-full border border-gray-200 rounded-lg px-3 py-2.5 text-sm appearance-none bg-gray-50 focus:outline-none focus:ring-2 focus:ring-sera/20 focus:border-sera">
+                      <select aria-label="Property type" className="w-full border border-gray-200 rounded-lg px-3 py-2.5 text-sm appearance-none bg-gray-50 focus:outline-none focus:ring-2 focus:ring-sera/20 focus:border-sera">
                         <option>Residential</option>
                         <option>Commercial</option>
                       </select>
@@ -136,7 +142,7 @@ export default function HeroSection() {
                       Bedrooms
                     </label>
                     <div className="relative">
-                      <select className="w-full border border-gray-200 rounded-lg px-3 py-2.5 text-sm appearance-none bg-gray-50 focus:outline-none focus:ring-2 focus:ring-sera/20 focus:border-sera">
+                      <select aria-label="Number of bedrooms" className="w-full border border-gray-200 rounded-lg px-3 py-2.5 text-sm appearance-none bg-gray-50 focus:outline-none focus:ring-2 focus:ring-sera/20 focus:border-sera">
                         <option>Select</option>
                         <option>1</option>
                         <option>2</option>
@@ -152,7 +158,7 @@ export default function HeroSection() {
                       Price Range
                     </label>
                     <div className="relative">
-                      <select className="w-full border border-gray-200 rounded-lg px-3 py-2.5 text-sm appearance-none bg-gray-50 focus:outline-none focus:ring-2 focus:ring-sera/20 focus:border-sera">
+                      <select aria-label="Price range" className="w-full border border-gray-200 rounded-lg px-3 py-2.5 text-sm appearance-none bg-gray-50 focus:outline-none focus:ring-2 focus:ring-sera/20 focus:border-sera">
                         <option>Select Range</option>
                         <option>Under 25,000</option>
                         <option>25,000 - 50,000</option>

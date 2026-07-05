@@ -10,6 +10,7 @@ import {
   Phone,
   Clock,
 } from "lucide-react";
+import Image from "next/image";
 import { motion } from "framer-motion";
 
 const companyLinks = [
@@ -124,9 +125,11 @@ export default function Footer() {
             viewport={{ once: true }}
           >
             <div className="flex items-center gap-2.5 mb-5">
-              <img
+              <Image
                 src="/images/logo.png"
                 alt="Sera Property"
+                width={48}
+                height={48}
                 className="h-12 w-auto object-contain brightness-0 invert"
               />
               <div className="flex flex-col -space-y-0.5">

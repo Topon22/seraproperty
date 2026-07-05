@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger, SheetTitle } from "@/components/ui/sheet";
 import { Menu, ChevronDown, Phone, X } from "lucide-react";
@@ -107,16 +108,18 @@ export default function Navbar() {
               transition={{ duration: 0.6, ease: [0.25, 1, 0.5, 1] as const }}
               aria-label="Sera Property - Home"
             >
-              <motion.img
-                src="/images/logo.png"
-                alt=""
-                className={`h-10 md:h-12 w-auto object-contain transition-all duration-300 ${
-                  scrolled ? "" : "drop-shadow-[0_2px_8px_rgba(0,0,0,0.3)]"
-                }`}
-                whileHover={{ scale: 1.05 }}
-                transition={{ type: "spring", stiffness: 400, damping: 15 }}
-                aria-hidden="true"
-              />
+              <motion.div whileHover={{ scale: 1.05 }} transition={{ type: "spring", stiffness: 400, damping: 15 }}>
+                <Image
+                  src="/images/logo.png"
+                  alt=""
+                  width={48}
+                  height={48}
+                  className={`h-10 md:h-12 w-auto object-contain transition-all duration-300 ${
+                    scrolled ? "" : "drop-shadow-[0_2px_8px_rgba(0,0,0,0.3)]"
+                  }`}
+                  aria-hidden="true"
+                />
+              </motion.div>
               <div className="hidden sm:flex flex-col -space-y-0.5">
                 <span
                   className="text-lg md:text-xl font-extrabold tracking-tight leading-none transition-colors duration-300"
@@ -224,9 +227,11 @@ export default function Navbar() {
                     {/* Mobile header */}
                     <div className="flex items-center justify-between p-6 border-b border-gray-100">
                       <div className="flex items-center gap-2.5">
-                        <img
+                        <Image
                           src="/images/logo.png"
                           alt=""
+                          width={40}
+                          height={40}
                           className="h-10 w-auto object-contain"
                           aria-hidden="true"
                         />

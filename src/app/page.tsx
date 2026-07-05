@@ -50,8 +50,8 @@ interface BlogPost {
 
 function ErrorBanner({ onRetry }: { onRetry: () => void }) {
   return (
-    <div className="flex flex-col items-center justify-center py-16 px-4 text-center">
-      <AlertTriangle className="w-12 h-12 text-amber-400 mb-4" />
+    <div className="flex flex-col items-center justify-center py-16 px-4 text-center" role="alert">
+      <AlertTriangle className="w-12 h-12 text-amber-400 mb-4" aria-hidden="true" />
       <h2 className="text-lg font-semibold text-dark mb-2">
         Something went wrong
       </h2>
@@ -61,10 +61,45 @@ function ErrorBanner({ onRetry }: { onRetry: () => void }) {
       <button
         onClick={onRetry}
         className="inline-flex items-center gap-2 bg-sera hover:bg-sera-dark text-white rounded-full px-6 py-2.5 text-sm font-medium transition-colors"
+        aria-label="Retry loading properties"
       >
-        <RefreshCw className="w-4 h-4" />
+        <RefreshCw className="w-4 h-4" aria-hidden="true" />
         Try Again
       </button>
+    </div>
+  );
+}
+
+function PropertySkeleton() {
+  return (
+    <div className="flex-shrink-0 w-[280px] sm:w-[300px]" aria-hidden="true">
+      <div className="bg-white rounded-2xl overflow-hidden border border-gray-100">
+        <div className="h-[200px] bg-gray-100 animate-pulse" />
+        <div className="p-4 space-y-3">
+          <div className="h-4 bg-gray-100 rounded w-3/4 animate-pulse" />
+          <div className="h-3 bg-gray-100 rounded w-1/2 animate-pulse" />
+          <div className="flex gap-3">
+            <div className="h-3 bg-gray-100 rounded w-16 animate-pulse" />
+            <div className="h-3 bg-gray-100 rounded w-16 animate-pulse" />
+            <div className="h-3 bg-gray-100 rounded w-20 animate-pulse" />
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function BlogSkeleton() {
+  return (
+    <div className="flex-shrink-0 w-[320px] sm:w-[360px]" aria-hidden="true">
+      <div className="bg-white rounded-2xl overflow-hidden border border-gray-100">
+        <div className="h-48 bg-gray-100 animate-pulse" />
+        <div className="p-5 space-y-3">
+          <div className="h-3 bg-gray-100 rounded w-24 animate-pulse" />
+          <div className="h-4 bg-gray-100 rounded w-full animate-pulse" />
+          <div className="h-3 bg-gray-100 rounded w-2/3 animate-pulse" />
+        </div>
+      </div>
     </div>
   );
 }
@@ -83,7 +118,6 @@ export default function Home() {
   }, []);
 
   const fetchData = useCallback(async () => {
-    // Abort any in-flight request
     abortRef.current?.abort();
     const controller = new AbortController();
     abortRef.current = controller;
@@ -138,30 +172,72 @@ export default function Home() {
             <ErrorBanner onRetry={fetchData} />
           ) : (
             <>
-              {!loading && residentialProperties.length > 0 && (
-                <PropertyCarousel
-                  title="Explore Properties"
-                  properties={residentialProperties}
-                  browseText="Browse All Residential Properties"
-                />
-              )}
-
-              {!loading && commercialProperties.length > 0 && (
-                <div className="bg-gray-50">
+              {/* Residential Properties */}
+              <section aria-label="Featured residential properties">
+                {loading ? (
+                  <div className="py-16 md:py-24 bg-white">
+                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                      <div className="h-8 bg-gray-100 rounded w-64 mb-8 animate-pulse" />
+                      <div className="flex gap-5 overflow-hidden">
+                        {Array.from({ length: 4 }).map((_, i) => (
+                          <PropertySkeleton key={`res-skel-${i}`} />
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                ) : residentialProperties.length > 0 ? (
                   <PropertyCarousel
-                    title="Featured Commercial Spaces"
-                    properties={commercialProperties}
-                    browseText="Browse All Commercial Properties"
+                    title="Explore Properties"
+                    properties={residentialProperties}
+                    browseText="Browse All Residential Properties"
                   />
-                </div>
-              )}
+                ) : null}
+              </section>
+
+              {/* Commercial Properties */}
+              <section aria-label="Featured commercial properties">
+                {loading ? (
+                  <div className="py-16 md:py-24 bg-gray-50">
+                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                      <div className="h-8 bg-gray-100 rounded w-64 mb-8 animate-pulse" />
+                      <div className="flex gap-5 overflow-hidden">
+                        {Array.from({ length: 3 }).map((_, i) => (
+                          <PropertySkeleton key={`com-skel-${i}`} />
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                ) : commercialProperties.length > 0 ? (
+                  <div className="bg-gray-50">
+                    <PropertyCarousel
+                      title="Featured Commercial Spaces"
+                      properties={commercialProperties}
+                      browseText="Browse All Commercial Properties"
+                    />
+                  </div>
+                ) : null}
+              </section>
 
               <WhyChooseSection />
               <SeraViewSection />
 
-              {!loading && blogPosts.length > 0 && (
-                <BlogSection posts={blogPosts} />
-              )}
+              {/* Blog Posts */}
+              <section aria-label="Blog posts and articles">
+                {loading ? (
+                  <div className="py-16 md:py-24 bg-gray-50">
+                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                      <div className="h-8 bg-gray-100 rounded w-48 mb-8 animate-pulse" />
+                      <div className="flex gap-5 overflow-hidden">
+                        {Array.from({ length: 3 }).map((_, i) => (
+                          <BlogSkeleton key={`blog-skel-${i}`} />
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                ) : blogPosts.length > 0 ? (
+                  <BlogSection posts={blogPosts} />
+                ) : null}
+              </section>
 
               <ExploreSection />
             </>

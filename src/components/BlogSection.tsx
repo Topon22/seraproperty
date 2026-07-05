@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef, useState } from "react";
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { ChevronLeft, ChevronRight, ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
@@ -107,12 +108,15 @@ export default function BlogSection({ posts }: { posts: BlogPost[] }) {
               transition={{ duration: 0.5, delay: index * 0.08, ease: [0.25, 1, 0.5, 1] }}
               className="flex-shrink-0 w-[320px] sm:w-[360px] bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-500 border border-gray-100 group cursor-pointer hover:-translate-y-1"
             >
-              <div className="relative h-48 overflow-hidden">
+              <div className="relative h-48 overflow-hidden bg-gray-100">
                 {post.imageUrl && (
-                  <img
+                  <Image
                     src={post.imageUrl}
                     alt={post.title}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                    fill
+                    className="object-cover group-hover:scale-105 transition-transform duration-700"
+                    sizes="(max-width: 640px) 320px, 360px"
+                    loading="lazy"
                   />
                 )}
               </div>

@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
@@ -18,10 +19,13 @@ export default function SeraViewSection() {
             className="relative"
           >
             <div className="rounded-2xl overflow-hidden shadow-2xl">
-              <img
+              <Image
                 src="/images/seraview.png"
-                alt="SeraVIEW virtual tour"
+                alt="SeraVIEW virtual property tour interface"
+                width={800}
+                height={600}
                 className="w-full h-auto"
+                loading="lazy"
               />
             </div>
             <div className="absolute -bottom-4 -right-4 w-32 h-32 bg-sera/10 rounded-2xl -z-10" />

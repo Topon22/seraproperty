@@ -49,7 +49,7 @@ const categories = [
 
 export default function ExploreSection() {
   return (
-    <section className="py-16 md:py-24 bg-white" id="learn-more">
+    <section className="py-16 md:py-24 bg-white" id="add-property" aria-label="Explore rental categories and neighborhoods">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
