@@ -1,11 +1,17 @@
 import { NextResponse } from "next/server";
 import { seedProperties } from "@/lib/seed-data";
 
+const VALID_TYPES = ["residential", "commercial"] as const;
+
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
-  const type = searchParams.get("type");
+  const rawType = searchParams.get("type");
 
-  // Try database first, fall back to static seed data
+  // Validate type parameter
+  const type = rawType && VALID_TYPES.includes(rawType as typeof VALID_TYPES[number])
+    ? rawType
+    : undefined;
+
   try {
     const { db } = await import("@/lib/db");
     const properties = await db.property.findMany({
@@ -16,8 +22,8 @@ export async function GET(request: Request) {
       orderBy: { createdAt: "desc" },
     });
     return NextResponse.json({ properties });
-  } catch {
-    // Fallback: serve from static seed data (works on Vercel / any serverless env)
+  } catch (error) {
+    console.error("[/api/properties] DB unavailable, using fallback:", error);
     const filtered = type
       ? seedProperties.filter((p) => p.type === type)
       : seedProperties;

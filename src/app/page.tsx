@@ -1,8 +1,9 @@
 "use client";
 
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState, useCallback, useRef } from "react";
 import dynamic from "next/dynamic";
 import LoadingScreen from "@/components/LoadingScreen";
+import { AlertTriangle, RefreshCw } from "lucide-react";
 
 const Navbar = dynamic(() => import("@/components/Navbar"), { ssr: false });
 const HeroSection = dynamic(() => import("@/components/HeroSection"), { ssr: false });
@@ -47,45 +48,78 @@ interface BlogPost {
   publishedAt: string | null;
 }
 
+function ErrorBanner({ onRetry }: { onRetry: () => void }) {
+  return (
+    <div className="flex flex-col items-center justify-center py-16 px-4 text-center">
+      <AlertTriangle className="w-12 h-12 text-amber-400 mb-4" />
+      <h2 className="text-lg font-semibold text-dark mb-2">
+        Something went wrong
+      </h2>
+      <p className="text-sm text-gray-500 mb-6 max-w-md">
+        We couldn&apos;t load the latest properties. Please check your connection and try again.
+      </p>
+      <button
+        onClick={onRetry}
+        className="inline-flex items-center gap-2 bg-sera hover:bg-sera-dark text-white rounded-full px-6 py-2.5 text-sm font-medium transition-colors"
+      >
+        <RefreshCw className="w-4 h-4" />
+        Try Again
+      </button>
+    </div>
+  );
+}
+
 export default function Home() {
   const [showLoader, setShowLoader] = useState(true);
   const [residentialProperties, setResidentialProperties] = useState<Property[]>([]);
   const [commercialProperties, setCommercialProperties] = useState<Property[]>([]);
   const [blogPosts, setBlogPosts] = useState<BlogPost[]>([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const abortRef = useRef<AbortController | null>(null);
 
   const handleLoaderComplete = useCallback(() => {
     setShowLoader(false);
   }, []);
 
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        const [propsRes, blogsRes] = await Promise.all([
-          fetch("/api/properties"),
-          fetch("/api/blogs"),
-        ]);
+  const fetchData = useCallback(async () => {
+    // Abort any in-flight request
+    abortRef.current?.abort();
+    const controller = new AbortController();
+    abortRef.current = controller;
 
-        const propsData = await propsRes.json();
-        const blogsData = await blogsRes.json();
+    setLoading(true);
+    setError(null);
 
-        const allProps = propsData.properties || [];
-        setResidentialProperties(
-          allProps.filter((p: Property) => p.type === "residential")
-        );
-        setCommercialProperties(
-          allProps.filter((p: Property) => p.type === "commercial")
-        );
-        setBlogPosts(blogsData.posts || []);
-      } catch (error) {
-        console.error("Failed to fetch data:", error);
-      } finally {
-        setLoading(false);
+    try {
+      const [propsRes, blogsRes] = await Promise.all([
+        fetch("/api/properties", { signal: controller.signal }),
+        fetch("/api/blogs", { signal: controller.signal }),
+      ]);
+
+      if (!propsRes.ok || !blogsRes.ok) {
+        throw new Error(`API error: ${propsRes.status} / ${blogsRes.status}`);
       }
-    }
 
-    fetchData();
+      const propsData = await propsRes.json();
+      const blogsData = await blogsRes.json();
+
+      const allProps: Property[] = propsData.properties || [];
+      setResidentialProperties(allProps.filter((p) => p.type === "residential"));
+      setCommercialProperties(allProps.filter((p) => p.type === "commercial"));
+      setBlogPosts(blogsData.posts || []);
+    } catch (err) {
+      if (err instanceof DOMException && err.name === "AbortError") return;
+      setError("Failed to fetch data");
+    } finally {
+      setLoading(false);
+    }
   }, []);
+
+  useEffect(() => {
+    fetchData();
+    return () => abortRef.current?.abort();
+  }, [fetchData]);
 
   return (
     <>
@@ -97,35 +131,41 @@ export default function Home() {
         }`}
       >
         <Navbar />
-        <main className="flex-1">
+        <main className="flex-1" id="main-content">
           <HeroSection />
 
-          {!loading && residentialProperties.length > 0 && (
-            <PropertyCarousel
-              title="Explore Properties"
-              properties={residentialProperties}
-              browseText="Browse All Residential Properties"
-            />
+          {error ? (
+            <ErrorBanner onRetry={fetchData} />
+          ) : (
+            <>
+              {!loading && residentialProperties.length > 0 && (
+                <PropertyCarousel
+                  title="Explore Properties"
+                  properties={residentialProperties}
+                  browseText="Browse All Residential Properties"
+                />
+              )}
+
+              {!loading && commercialProperties.length > 0 && (
+                <div className="bg-gray-50">
+                  <PropertyCarousel
+                    title="Featured Commercial Spaces"
+                    properties={commercialProperties}
+                    browseText="Browse All Commercial Properties"
+                  />
+                </div>
+              )}
+
+              <WhyChooseSection />
+              <SeraViewSection />
+
+              {!loading && blogPosts.length > 0 && (
+                <BlogSection posts={blogPosts} />
+              )}
+
+              <ExploreSection />
+            </>
           )}
-
-          {!loading && commercialProperties.length > 0 && (
-            <div className="bg-gray-50">
-              <PropertyCarousel
-                title="Featured Commercial Spaces"
-                properties={commercialProperties}
-                browseText="Browse All Commercial Properties"
-              />
-            </div>
-          )}
-
-          <WhyChooseSection />
-          <SeraViewSection />
-
-          {!loading && blogPosts.length > 0 && (
-            <BlogSection posts={blogPosts} />
-          )}
-
-          <ExploreSection />
         </main>
         <Footer />
         <WhatsAppButton />

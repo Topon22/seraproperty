@@ -45,6 +45,8 @@
   --color-sera-dark: #2980b9;
   --color-sera-light: #5dade2;
   --color-sera-bg: #EBF5FB;
+  --color-whatsapp: #25D366;
+  --color-whatsapp-dark: #1ebe57;
   --color-dark: #1A1A2E;
   --color-dark-soft: #2D2D44;
   --color-gray-100: #F7F7F8;
@@ -117,7 +119,7 @@
   background: #AEAEB2;
 }
 
-/* Hide scrollbar for carousel */
+/* Hide scrollbar for carousel (all browsers) */
 .no-scrollbar::-webkit-scrollbar {
   display: none;
 }
@@ -136,9 +138,27 @@
   );
 }
 
-/* Smooth scroll */
+/* Smooth scroll with fixed-nav offset */
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 7rem;
+}
+
+/* Safe area insets for notched devices */
+body {
+  padding-top: env(safe-area-inset-top);
+  padding-right: env(safe-area-inset-right);
+  padding-bottom: env(safe-area-inset-bottom);
+  padding-left: env(safe-area-inset-left);
+}
+
+/* Firefox scrollbar support for custom scrollbar */
+.custom-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: #D1D1D6 transparent;
+}
+.custom-scrollbar:hover {
+  scrollbar-color: #AEAEB2 transparent;
 }
 
 /* Animation keyframes */
