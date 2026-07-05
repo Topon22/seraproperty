@@ -45,7 +45,7 @@ export default function Footer() {
             <img
               src="/images/logo.png"
               alt="Sera Property"
-              className="h-9 w-auto mb-4"
+              className="h-12 w-auto object-contain mb-4"
             />
             <div className="space-y-3 text-sm text-gray-500">
               <div className="flex items-start gap-2.5">

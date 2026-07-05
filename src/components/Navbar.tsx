@@ -3,8 +3,7 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger, SheetTitle } from "@/components/ui/sheet";
-import { Menu, X, ChevronDown } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
+import { Menu, ChevronDown } from "lucide-react";
 
 const navLinks = [
   { label: "Find Properties", href: "#properties" },
@@ -35,20 +34,16 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 md:h-20">
           {/* Logo */}
-          <a href="#" className="flex items-center">
-            {scrolled ? (
-              <img
-                src="/images/logo.png"
-                alt="Sera Property"
-                className="h-9 md:h-10 w-auto rounded-lg"
-              />
-            ) : (
-              <img
-                src="/images/logo.png"
-                alt="Sera Property"
-                className="h-9 md:h-10 w-auto rounded-lg shadow-lg shadow-black/20"
-              />
-            )}
+          <a href="#" className="flex items-center shrink-0">
+            <img
+              src="/images/logo.png"
+              alt="Sera Property"
+              className={`h-10 md:h-12 w-auto object-contain transition-all duration-300 ${
+                scrolled
+                  ? ""
+                  : "drop-shadow-[0_2px_8px_rgba(0,0,0,0.3)]"
+              }`}
+            />
           </a>
 
           {/* Desktop Nav */}
@@ -100,7 +95,7 @@ export default function Navbar() {
                     <img
                       src="/images/logo.png"
                       alt="Sera Property"
-                      className="h-8 w-auto"
+                      className="h-11 w-auto object-contain"
                     />
                   </div>
                   <div className="flex-1 overflow-y-auto py-4">
