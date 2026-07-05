@@ -1,3 +1,5 @@
+"use client";
+
 import {
   Facebook,
   Instagram,
@@ -25,6 +27,12 @@ const serviceLinks = [
   { label: "Rental Report", href: "#" },
 ];
 
+const socialLinks = [
+  { Icon: Facebook, href: "#", label: "Facebook" },
+  { Icon: Instagram, href: "#", label: "Instagram" },
+  { Icon: Youtube, href: "#", label: "Youtube" },
+  { Icon: Linkedin, href: "#", label: "LinkedIn" },
+];
 const locations = [
   "Gulshan 1",
   "Gulshan 2",
@@ -138,15 +146,11 @@ export default function Footer() {
 
           {/* Social Icons */}
           <div className="flex items-center gap-3">
-            {[
-              { Icon: Facebook, href: "#" },
-              { Icon: Instagram, href: "#" },
-              { Icon: Youtube, href: "#" },
-              { Icon: Linkedin, href: "#" },
-            ].map(({ Icon, href }) => (
+            {socialLinks.map(({ Icon, href, label }) => (
               <a
-                key={href}
+                key={label}
                 href={href}
+                aria-label={label}
                 className="w-9 h-9 rounded-full bg-gray-200/60 hover:bg-sera flex items-center justify-center text-gray-500 hover:text-white transition-all duration-200"
               >
                 <Icon className="w-4 h-4" />

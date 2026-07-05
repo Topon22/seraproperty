@@ -11,6 +11,10 @@ const urbanist = Urbanist({
 
 export const metadata: Metadata = {
   title: "Sera Property — Renting Made Simple",
+  icons: {
+    icon: "/favicon.ico",
+    apple: "/apple-touch-icon.png",
+  },
   description:
     "Find, rent, and manage properties effortlessly with Sera Property. Discover Dhaka's best apartments and commercial spaces with verified listings, virtual tours, and more.",
   keywords: [

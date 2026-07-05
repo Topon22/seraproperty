@@ -11,16 +11,6 @@ export default function LoadingScreen({ onComplete }: LoadingScreenProps) {
   const [phase, setPhase] = useState<"intro" | "reveal" | "loading" | "done">("intro");
   const [progress, setProgress] = useState(0);
   const [taglineVisible, setTaglineVisible] = useState(false);
-  const [particles] = useState(() =>
-    Array.from({ length: 30 }, (_, i) => ({
-      id: i,
-      x: Math.random() * 100,
-      y: Math.random() * 100,
-      size: Math.random() * 4 + 1,
-      duration: Math.random() * 6 + 4,
-      delay: Math.random() * 3,
-    }))
-  );
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   // Canvas particle background
@@ -132,13 +122,8 @@ export default function LoadingScreen({ onComplete }: LoadingScreenProps) {
     const interval = 16;
     const baseStep = 100 / (duration / interval);
     let current = 0;
-    let lastTime = performance.now();
 
     const timer = setInterval(() => {
-      const now = performance.now();
-      const delta = now - lastTime;
-      lastTime = now;
-
       // Eased progress — fast start, slow end
       const remaining = 100 - current;
       const speed = baseStep * (0.8 + (remaining / 100) * 0.8);
@@ -418,48 +403,84 @@ export default function LoadingScreen({ onComplete }: LoadingScreenProps) {
 
           {/* Corner accents */}
           <div className="absolute top-6 left-6 z-10">
-            <motion.div
-              initial={{ opacity: 0, pathLength: 0 }}
-              animate={{ opacity: 0.15, pathLength: 1 }}
+            <motion.svg
+              width="40"
+              height="40"
+              viewBox="0 0 40 40"
+              fill="none"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 0.15 }}
               transition={{ duration: 1.5, delay: 0.8, ease: "easeOut" }}
             >
-              <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
-                <path d="M0 20 L0 0 L20 0" stroke="#5dade2" strokeWidth="1" />
-              </svg>
-            </motion.div>
+              <motion.path
+                d="M0 20 L0 0 L20 0"
+                stroke="#5dade2"
+                strokeWidth="1"
+                initial={{ pathLength: 0 }}
+                animate={{ pathLength: 1 }}
+                transition={{ duration: 1.5, delay: 0.8, ease: "easeOut" }}
+              />
+            </motion.svg>
           </div>
           <div className="absolute top-6 right-6 z-10">
-            <motion.div
+            <motion.svg
+              width="40"
+              height="40"
+              viewBox="0 0 40 40"
+              fill="none"
               initial={{ opacity: 0 }}
               animate={{ opacity: 0.15 }}
               transition={{ duration: 1, delay: 1 }}
             >
-              <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
-                <path d="M20 0 L40 0 L40 20" stroke="#5dade2" strokeWidth="1" />
-              </svg>
-            </motion.div>
+              <motion.path
+                d="M20 0 L40 0 L40 20"
+                stroke="#5dade2"
+                strokeWidth="1"
+                initial={{ pathLength: 0 }}
+                animate={{ pathLength: 1 }}
+                transition={{ duration: 1, delay: 1, ease: "easeOut" }}
+              />
+            </motion.svg>
           </div>
           <div className="absolute bottom-6 left-6 z-10">
-            <motion.div
+            <motion.svg
+              width="40"
+              height="40"
+              viewBox="0 0 40 40"
+              fill="none"
               initial={{ opacity: 0 }}
               animate={{ opacity: 0.15 }}
               transition={{ duration: 1, delay: 1.2 }}
             >
-              <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
-                <path d="M0 20 L0 40 L20 40" stroke="#5dade2" strokeWidth="1" />
-              </svg>
-            </motion.div>
+              <motion.path
+                d="M0 20 L0 40 L20 40"
+                stroke="#5dade2"
+                strokeWidth="1"
+                initial={{ pathLength: 0 }}
+                animate={{ pathLength: 1 }}
+                transition={{ duration: 1, delay: 1.2, ease: "easeOut" }}
+              />
+            </motion.svg>
           </div>
           <div className="absolute bottom-6 right-6 z-10">
-            <motion.div
+            <motion.svg
+              width="40"
+              height="40"
+              viewBox="0 0 40 40"
+              fill="none"
               initial={{ opacity: 0 }}
               animate={{ opacity: 0.15 }}
               transition={{ duration: 1, delay: 1.4 }}
             >
-              <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
-                <path d="M40 20 L40 40 L20 40" stroke="#5dade2" strokeWidth="1" />
-              </svg>
-            </motion.div>
+              <motion.path
+                d="M40 20 L40 40 L20 40"
+                stroke="#5dade2"
+                strokeWidth="1"
+                initial={{ pathLength: 0 }}
+                animate={{ pathLength: 1 }}
+                transition={{ duration: 1, delay: 1.4, ease: "easeOut" }}
+              />
+            </motion.svg>
           </div>
         </motion.div>
       )}
