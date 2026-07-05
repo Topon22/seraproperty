@@ -1,0 +1,28 @@
+{
+  "choices": [
+    {
+      "finish_reason": "stop",
+      "index": 0,
+      "message": {
+        "content": "The 'Why Choose Sera Property' section is rendering properly. Here's a breakdown:  \n\n- **Feature Cards**: Three cards are visible, each with an icon (computer monitor, shield, user icon), a title, and descriptive text.  \n- **Layout**: Cards are evenly spaced in a row, with consistent padding and alignment.  \n- **Opacity/Text**: Text is legible (no opacity issues), and the color contrast (dark text on light background) is clear.  \n\nNo visible issues with rendering, layout, opacity, or text.",
+        "role": "assistant"
+      }
+    }
+  ],
+  "created": 1783245446,
+  "id": "2026070517572358e451a9936b42e7",
+  "model": "glm-4.6v",
+  "object": "chat.completion",
+  "request_id": "2026070517572358e451a9936b42e7",
+  "usage": {
+    "completion_tokens": 113,
+    "completion_tokens_details": {
+      "reasoning_tokens": 0
+    },
+    "prompt_tokens": 1011,
+    "prompt_tokens_details": {
+      "cached_tokens": 4
+    },
+    "total_tokens": 1124
+  }
+}

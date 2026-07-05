@@ -1,0 +1,28 @@
+{
+  "choices": [
+    {
+      "finish_reason": "stop",
+      "index": 0,
+      "message": {
+        "content": "1) Property cards with images, prices, and details: **Not visible** - The screenshot shows a \"Why Choose\" section and navigation, but no property cards are present.  \n2) 'Why Choose' features section rendering: **Partially visible** - The section title \"Why Choose Sera Property\" is visible, and two feature cards (\"Best in Class Digital Experience\" and \"Verified Properties\") are rendering, though content appears faded/low-opacity.  \n3) Visual bugs or broken elements: **No obvious visual bugs** - Elements appear to be in place, but the faded content suggests potential rendering issues (e.g., loading state, opacity problems) rather than outright broken elements. The \"2 Issues\" notification in the bottom-left implies backend/functional problems, but no visual breakage is evident in the UI itself.",
+        "role": "assistant"
+      }
+    }
+  ],
+  "created": 1783245341,
+  "id": "20260705175537358eac5582d548c1",
+  "model": "glm-4.6v",
+  "object": "chat.completion",
+  "request_id": "20260705175537358eac5582d548c1",
+  "usage": {
+    "completion_tokens": 171,
+    "completion_tokens_details": {
+      "reasoning_tokens": 0
+    },
+    "prompt_tokens": 1028,
+    "prompt_tokens_details": {
+      "cached_tokens": 7
+    },
+    "total_tokens": 1199
+  }
+}

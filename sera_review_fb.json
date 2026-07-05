@@ -1,0 +1,28 @@
+{
+  "choices": [
+    {
+      "finish_reason": "stop",
+      "index": 0,
+      "message": {
+        "content": "To determine the footer’s position and visibility:  \n\n1. **Footer Position**: The footer (containing the copyright text, social icons, and “Make a Request” text) appears at the very bottom of the page with no floating gap.  \n2. **Social Icons & Copyright Visibility**: The social icons row (Facebook, Instagram, YouTube, LinkedIn icons) and the copyright text (“© 2026 Sera Property Ltd. | All rights reserved”) are clearly visible.  \n\n\nThus, the footer is at the bottom with no gap, and the social icons row + copyright are visible.  \n\nThe answer is Yes",
+        "role": "assistant"
+      }
+    }
+  ],
+  "created": 1783245467,
+  "id": "2026070517574388fccf2b81f243bd",
+  "model": "glm-4.6v",
+  "object": "chat.completion",
+  "request_id": "2026070517574388fccf2b81f243bd",
+  "usage": {
+    "completion_tokens": 128,
+    "completion_tokens_details": {
+      "reasoning_tokens": 0
+    },
+    "prompt_tokens": 1003,
+    "prompt_tokens_details": {
+      "cached_tokens": 5
+    },
+    "total_tokens": 1131
+  }
+}

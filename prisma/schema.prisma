@@ -1,0 +1,55 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Property {
+  id          String   @id @default(cuid())
+  title       String
+  location    String
+  area        String
+  price       Int
+  priceUnit   String   @default("per month")
+  bedrooms    Int?
+  bathrooms   Int?
+  sqft        Int?
+  type        String   @default("residential") // residential or commercial
+  category    String?  // Apartment, House, Office, Commercial Space, etc.
+  spaceType   String?  // Open Space, Enclosed Space
+  furnished   String   @default("Unfurnished")
+  featured    Boolean  @default(false)
+  hasView     Boolean  @default(false)
+  imageUrl    String
+  imageUrls   String   @default("[]") // JSON array of additional image URLs
+  description String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model BlogPost {
+  id          String   @id @default(cuid())
+  title       String
+  excerpt     String
+  content     String?
+  imageUrl    String?
+  author      String?
+  readTime    String?
+  publishedAt DateTime?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Testimonial {
+  id        String   @id @default(cuid())
+  name      String
+  role      String?
+  content   String
+  avatarUrl String?
+  rating    Int      @default(5)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
